@@ -269,97 +269,99 @@
 # Test de particiones
 title "You are using a virtual machine"
     text "So i will partition the disk for you"
-    loadingAnimation &
+    # loadingAnimation &
     sleep 1
     DISK_SIZE=$(lsblk -b | grep disk | awk '{print $4}' END {print total})
-    parted -s /dev/sda mklabel msdos > /dev/null 2>&1
-    if [ $? -eq 0];then
-        echo "Partition table created correctly"
-    else
-        echo "Error creating partition table"
-    fi
-    parted -s /dev/sda mkpart primary fat32 1MiB 513MiB > /dev/null 2>&1
-    if [ $? -eq 0];then
-        echo "Partition created correctly"
-    else
-        echo "Error creating partition"
-    fi
-    parted -s /dev/sda set 1 boot on > /dev/null 2>&1
-    if [ $? -eq 0];then
-        echo "Partition set correctly"
-    else
-        echo "Error setting partition"
-    fi
-    parted -s /dev/sda mkpart primary ext4 513MiB $(($DISK_SIZE-4*1024*1024*1024))B > /dev/null 2>&1
-    if [ $? -eq 0];then
-        echo "Root partition created correctly"
-    else
-        echo "Error creating root partition"
-    fi
-    parted -s /dev/sda mkpart primary linux-swap $(($DISK_SIZE-4*1024*1024*1024+512*1024*1024+1))B 100% > /dev/null 2>&1
-    if [ $? -eq 0];then
-        echo "Swap partition created correctly"
-    else
-        echo "Error creating swap partition"
-    fi
-    sleep 1
-    PID=$!
-    loadingAnimationStop
-    clear
-    titleLogo "Time to format the partitions"
-    title "Formatting the partitions"
-    loadingAnimation &
-    sleep 1
-    mkfs.fat -F32 /dev/sda1 > /dev/null 2>&1
-    if [ $? -eq 0];then
-        echo "Partition formatted correctly"
-    else
-        echo "Error formatting partition"
-    fi
-    mkfs.ext4 /dev/sda2 > /dev/null 2>&1
-    if [ $? -eq 0];then
-        echo "Root partition formatted correctly"
-    else
-        echo "Error formatting root partition"
-    fi
-    mkswap /dev/sda3 > /dev/null 2>&1
-    if [ $? -eq 0];then
-        echo "Swap partition formatted correctly"
-    else
-        echo "Error formatting swap partition"
-    fi
-    sleep 1
-    PID=$!
-    loadingAnimationStop
-    clear
-    titleLogo "Time to mount the partitions"
-    title "Mounting the partitions"
-    loadingAnimation &
-    sleep 1
-    mount /dev/sda2 /mnt > /dev/null 2>&1
-    if [ $? -eq 0];then
-        echo "Root partition mounted correctly"
-    else
-        echo "Error mounting root partition"
-    fi
-    mkdir /mnt/boot > /dev/null 2>&1
-    if [ $? -eq 0];then
-        echo "Boot directory created correctly"
-    else
-        echo "Error creating boot directory"
-    fi
-    mount /dev/sda1 /mnt/boot > /dev/null 2>&1
-    if [ $? -eq 0];then
-        echo "Boot partition mounted correctly"
-    else
-        echo "Error mounting boot partition"
-    fi
-    swapon /dev/sda3 > /dev/null 2>&1
-    if [ $? -eq 0];then
-        echo "Swap partition mounted correctly"
-    else
-        echo "Error mounting swap partition"
-    fi
-    sleep 1
-    PID=$!
-    loadingAnimationStop
+    parted -s /dev/sda mklabel msdos 
+    # if [ $? -eq 0];then
+    #     echo "Partition table created correctly"
+    # else
+    #     echo "Error creating partition table"
+    # fi
+    parted -s /dev/sda mkpart primary fat32 1MiB 513MiB 
+    # if [ $? -eq 0];then
+    #     echo "Partition created correctly"
+    # else
+    #     echo "Error creating partition"
+    # fi
+    parted -s /dev/sda set 1 boot on 
+    # if [ $? -eq 0];then
+    #     echo "Partition set correctly"
+    # else
+    #     echo "Error setting partition"
+    # fi
+    parted -s /dev/sda mkpart primary ext4 513MiB $(($DISK_SIZE-4*1024*1024*1024))B 
+    # if [ $? -eq 0];then
+    #     echo "Root partition created correctly"
+    # else
+    #     echo "Error creating root partition"
+    # fi
+    parted -s /dev/sda mkpart primary linux-swap $(($DISK_SIZE-4*1024*1024*1024+512*1024*1024+1))B 100% 
+    # if [ $? -eq 0];then
+    #     echo "Swap partition created correctly"
+    # else
+    #     echo "Error creating swap partition"
+    # fi
+    sleep 10
+    # PID=$!
+    # loadingAnimationStop
+    # clear
+    # titleLogo "Time to format the partitions"
+    # title "Formatting the partitions"
+    # loadingAnimation &
+    # sleep 1
+    # mkfs.fat -F32 /dev/sda1 > /dev/null 2>&1
+    # if [ $? -eq 0];then
+    #     echo "Partition formatted correctly"
+    # else
+    #     echo "Error formatting partition"
+    # fi
+    # mkfs.ext4 /dev/sda2 > /dev/null 2>&1
+    # if [ $? -eq 0];then
+    #     echo "Root partition formatted correctly"
+    # else
+    #     echo "Error formatting root partition"
+    # fi
+    # mkswap /dev/sda3 > /dev/null 2>&1
+    # if [ $? -eq 0];then
+    #     echo "Swap partition formatted correctly"
+    # else
+    #     echo "Error formatting swap partition"
+    # fi
+    # sleep 1
+    # PID=$!
+    # loadingAnimationStop
+    # clear
+    # titleLogo "Time to mount the partitions"
+    # title "Mounting the partitions"
+    # loadingAnimation &
+    # sleep 1
+    # mount /dev/sda2 /mnt > /dev/null 2>&1
+    # if [ $? -eq 0];then
+    #     echo "Root partition mounted correctly"
+    # else
+    #     echo "Error mounting root partition"
+    # fi
+    # mkdir /mnt/boot > /dev/null 2>&1
+    # if [ $? -eq 0];then
+    #     echo "Boot directory created correctly"
+    # else
+    #     echo "Error creating boot directory"
+    # fi
+    # mount /dev/sda1 /mnt/boot > /dev/null 2>&1
+    # if [ $? -eq 0];then
+    #     echo "Boot partition mounted correctly"
+    # else
+    #     echo "Error mounting boot partition"
+    # fi
+    # swapon /dev/sda3 > /dev/null 2>&1
+    # if [ $? -eq 0];then
+    #     echo "Swap partition mounted correctly"
+    # else
+    #     echo "Error mounting swap partition"
+    # fi
+    # sleep 1
+    # PID=$!
+    # loadingAnimationStop
+	echo "Particiones creadas correctamente"
+	echo "O no? :v"

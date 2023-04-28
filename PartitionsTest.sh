@@ -104,7 +104,7 @@ clear
 titleLogo "Partitioning the disk"
     DISK_SIZE=$(lsblk -b | grep disk | awk '{print $4} END {print total}')
     parted -s /dev/sda mklabel msdos
-    if [ $? -eq 0];then
+    if [ $? -eq 0 ];then
         successText "Partition table created correctly"
         sleep 2
     else
@@ -112,7 +112,7 @@ titleLogo "Partitioning the disk"
         sleep 2
     fi
     parted -s /dev/sda mkpart primary fat32 1MiB 513MiB
-    if [ $? -eq 0];then
+    if [ $? -eq 0 ];then
         successText "Partition created correctly"
         sleep 2
     else
@@ -120,7 +120,7 @@ titleLogo "Partitioning the disk"
         sleep 2
     fi
     parted -s /dev/sda set 1 boot on
-    if [ $? -eq 0];then
+    if [ $? -eq 0 ];then
         successText "Partition set correctly"
         sleep 2
     else
@@ -128,7 +128,7 @@ titleLogo "Partitioning the disk"
         sleep 2
     fi
     parted -s /dev/sda mkpart primary ext4 513MiB $(($DISK_SIZE-4*1024*1024*1024))B 
-    if [ $? -eq 0];then
+    if [ $? -eq 0 ];then
         successText "Root partition created correctly"
         sleep 2
     else
@@ -136,7 +136,7 @@ titleLogo "Partitioning the disk"
         sleep 2
     fi
     parted -s /dev/sda mkpart primary linux-swap $(($DISK_SIZE-4*1024*1024*1024+512*1024*1024+1))B 100% 
-    if [ $? -eq 0];then
+    if [ $? -eq 0 ];then
         successText "Swap partition created correctly"
         sleep 2
     else

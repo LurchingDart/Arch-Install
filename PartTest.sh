@@ -184,7 +184,7 @@
 clear
 intro
 clear
-titleLogo
+titleLogo "Testing manual partitioning"
 clear
 
 title "You are not using a virtual machine"
